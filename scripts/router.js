@@ -4,8 +4,9 @@ export const router = {};
 
 /**
  * Changes the "page" (state) that your SPA app is currently set to
+ * @param {int} pageId - The page-id you want to change to 
  */
-router.setState = function() {
+router.setState = function(entry) {
   /**
    * - There are three states that your SPA app will have
    *    1. The home page
@@ -35,4 +36,50 @@ router.setState = function() {
    *    1. You may add as many helper functions in this file as you like
    *    2. You may modify the parameters of setState() as much as you like
    */
+
+  //Set state to home 
+  if (window.location.hash == ""){ 
+
+    //Stylize the page 
+    document.querySelector('body').setAttribute("class", "");  
+    document.querySelector('h1').innerHTML = "Journal Entries"
+  }
+  //Set state to settings
+  else if (window.location.hash == "#settings"){
+
+    //Set styling 
+    document.querySelector('body').setAttribute("class", "settings"); 
+    document.querySelector('h1').innerHTML = "Settings";
+  }
+  //Set state to entry
+  else {
+    let entryNum = router.findNum(entry); 
+    //set styling 
+    document.querySelector('body').setAttribute("class", "single-entry");
+    document.querySelector('h1').innerHTML = "Entry " + entryNum;
+
+    //Delete and recreate component 
+    document.querySelector('entry-page').remove(); 
+    let entryP = document.createElement('entry-page'); 
+    document.querySelector('body').appendChild(entryP); 
+    document.querySelector('entry-page').entry = entry;
+  }
+
 }
+
+/**
+ * Helper function which finds entry number 
+ */
+router.findNum = function(entry){ 
+  //Get which number entry it is 
+  let entries = document.querySelector('main').children
+  let i; 
+  for (i = 0; i < 10; i++){ 
+    if (entries[i].entry.title == entry.title){ 
+      break;
+    }
+  }
+  let entryNum = (i + 1); 
+  return entryNum; 
+}
+
