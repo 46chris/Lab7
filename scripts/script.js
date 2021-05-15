@@ -1,7 +1,7 @@
 // script.js
 import { router } from './router.js'; // Router imported so you can use it to manipulate your SPA app here
 const setState = router.setState;
-
+console.log("test");
 // Make sure you register your service worker here too
 let beginPage = window.location; //Keep track of home URL
 document.addEventListener('DOMContentLoaded', () => {
