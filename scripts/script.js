@@ -3,7 +3,7 @@ import { router } from './router.js'; // Router imported so you can use it to ma
 const setState = router.setState;
 
 // Make sure you register your service worker here too
-let beginPage = window.location; //Keep track of home URL
+
 document.addEventListener('DOMContentLoaded', () => {
   fetch('https://cse110lab6.herokuapp.com/entries')
     .then(response => response.json())
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //Don't nav to itself 
       if (window.location.hash != ""){ 
         //Push home state
-        window.history.pushState({page_id: 0}, "home", beginPage);
+        window.history.pushState({page_id: 0}, "home", window.origin + "/Lab7/");
         setState(); 
       }
     });
